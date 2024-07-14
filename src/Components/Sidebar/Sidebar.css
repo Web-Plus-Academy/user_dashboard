@@ -1,0 +1,28 @@
+.sidebar-container {
+    width: 200px;
+    background-color: #f4f4f4;
+    height: 100vh;
+    padding: 1rem;
+}
+  
+.sidebar-container ul {
+    list-style: none;
+    padding: 0;
+}
+  
+.sidebar-container li {
+    margin-bottom: 1rem;
+}
+  
+.sidebar-container a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.dashboard_name, .dashboard_button, .pod_name, .pod_button {
+    padding: 10px;
+}
+
+.dashboard_button, .pod_button{
+    margin: 10px;
+}
