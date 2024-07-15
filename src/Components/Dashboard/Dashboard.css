@@ -1,12 +1,29 @@
 .dashboard-container {
+    background-color: #f4f4f4;
+    border: 2px solid blue;
     padding: 2rem;
-}
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
   
-.dashboard-container h1 {
-    margin-bottom: 1rem;
-}
+  .dashboard-welcome {
+    font-size: 1.5rem;
+    color: #333;
+  }
   
-.dashboard-container p {
+  .dashboard-name {
+    font-size: 3rem;
+    margin: 1rem 0;
+    color: #007bff;
+  }
+  
+  .dashboard-id {
     font-size: 1.2rem;
-}
+    color: #666;
+  }
+  
+  /* Additional styling can be added for other user details */
   

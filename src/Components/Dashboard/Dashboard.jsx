@@ -4,8 +4,9 @@ import './Dashboard.css';
 const Dashboard = ({ userDetails }) => {
   return (
     <div className="dashboard-container">
-      <h1>Welcome, {userDetails.name}</h1>
-      <p>Email: {userDetails.email}</p>
+      <h4 className="dashboard-welcome">Welcome,</h4>
+      <h1 className="dashboard-name">{userDetails.name}</h1>
+      <p className="dashboard-id">ID: {userDetails.id}</p>
       {/* Add more user details as needed */}
     </div>
   );

@@ -7,6 +7,10 @@
     font-family: "Outfit";
 }
 
+hr{
+    border: 1px solid blue;
+}
+
 .app-container {
     display: flex;
 }

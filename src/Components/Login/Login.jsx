@@ -1,29 +1,45 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 import './Login.css';
-import loginImg from '../../assets/login.jpg'
+import loginImg from '../../assets/login.jpg';
 
 const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your login logic here
-    if (username === '1' && password === '1') { // Example validation
-      const userDetails = {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-      };
-      localStorage.setItem('auth', 'true');
-      localStorage.setItem('userDetails', JSON.stringify(userDetails));
-      setIsAuthenticated(true);
-      toast.success('Login successful!');
-      navigate('/dashboard');
-    } else {
-      toast.error('Invalid credentials');
+    
+    try {
+      // const response = await axios.post('YOUR_API_ENDPOINT', { username, password });
+
+      const response = {
+        data: {
+          success: true,
+          name: 'Saran Velmurugan',
+          id: 'FSDB100',
+        }
+      }
+
+      if (response.data.success) {
+        const userDetails = {
+          name: response.data.name,
+          id: response.data.id,
+        };
+        localStorage.setItem('auth', 'true');
+        localStorage.setItem('userDetails', JSON.stringify(userDetails));
+        setIsAuthenticated(true);
+        toast.success('Login successful!');
+        navigate('/dashboard');
+      } else {
+        toast.error('Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      toast.error('An error occurred. Please try again later.');
     }
   };
 

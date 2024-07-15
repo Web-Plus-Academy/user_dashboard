@@ -4,25 +4,39 @@
     height: 100vh;
     padding: 1rem;
 }
-  
+
 .sidebar-container ul {
     list-style: none;
     padding: 0;
 }
-  
+
 .sidebar-container li {
     margin-bottom: 1rem;
 }
-  
+
 .sidebar-container a {
     text-decoration: none;
     color: inherit;
 }
 
-.sidebar-container-button, .sidebar-container-link{
-    padding: 10px;
+.sidebar-container-button {
+    /* border: none; */
+    border-radius: 10px;
+    width: 80%;
+    margin: 10px;
+    overflow: hidden;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.276);
 }
 
-.sidebar-container-button{
-    margin: 10px;
+.sidebar-container-link {
+    padding: 10px;
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #000;
+}
+
+.sidebar-container-link.active {
+    font-weight: bold;
+    background-color: orange;
 }

@@ -1,27 +1,33 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Sidebar.css';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "./Sidebar.css";
 
 const Sidebar = () => {
     return (
         <div className="sidebar-container">
-
-            <button className='sidebar-container-button'>
-                <Link className='sidebar-container-link' to="/dashboard">Dashboard</Link>
+            <button className="sidebar-container-button">
+                <NavLink className="sidebar-container-link" to="/dashboard">
+                    Dashboard
+                </NavLink>
             </button>
 
-            <br /><hr />
+            <br />
+            <hr />
 
-            <button className='sidebar-container-button'>
-                <Link className='sidebar-container-link' to="/tasks">Tasks</Link>
+            <button className="sidebar-container-button">
+                <NavLink className="sidebar-container-link" to="/tasks">
+                    Tasks
+                </NavLink>
             </button>
 
-            <br /><hr />
+            <br />
+            <hr />
 
-            <button className='sidebar-container-button'>
-                <Link className='sidebar-container-link' to="/pod">POD</Link>
+            <button className="sidebar-container-button">
+                <NavLink className="sidebar-container-link" to="/pod">
+                    POD
+                </NavLink>
             </button>
-
         </div>
     );
 };
