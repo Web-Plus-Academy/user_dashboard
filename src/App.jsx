@@ -12,25 +12,29 @@ import TaskSubmit from './Components/TaskSubmit/TaskSubmit';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
-    // Check localStorage for authentication state
     const authState = localStorage.getItem('isAuthenticated');
+    const userDetails = localStorage.getItem('userDetails');
     if (authState) {
       setIsAuthenticated(JSON.parse(authState));
+      setUserDetails(JSON.parse(userDetails));
     }
   }, []);
 
   const handleLogin = (authState) => {
-    // Save authentication state to localStorage
     localStorage.setItem('isAuthenticated', JSON.stringify(authState));
+    const userDetails = JSON.parse(localStorage.getItem('userDetails'));
     setIsAuthenticated(authState);
+    setUserDetails(userDetails);
   };
 
   const handleLogout = () => {
-    // Remove authentication state from localStorage
     localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('userDetails');
     setIsAuthenticated(false);
+    setUserDetails(null);
   };
 
   return (
@@ -44,7 +48,7 @@ const App = () => {
             <div className="main-content">
               <Routes>
                 <Route path="/" element={<Navigate to="/dashboard" />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/dashboard" element={<Dashboard userDetails={userDetails} />} />
                 <Route path="/tasks" element={<TaskSubmit />} />
                 <Route path="/pod" element={<POD />} />
               </Routes>

@@ -1,10 +1,12 @@
 import React from 'react';
+import './Dashboard.css';
 
-const Dashboard = () => {
+const Dashboard = ({ userDetails }) => {
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <p>Welcome to the dashboard!</p>
+    <div className="dashboard-container">
+      <h1>Welcome, {userDetails.name}</h1>
+      <p>Email: {userDetails.email}</p>
+      {/* Add more user details as needed */}
     </div>
   );
 };
