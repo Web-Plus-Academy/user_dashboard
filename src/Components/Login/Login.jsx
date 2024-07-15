@@ -12,31 +12,32 @@ const Login = ({ setIsAuthenticated }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let userData = {
+      username:username.toUpperCase(),
+      password
+    }
     
     try {
-      // const response = await axios.post('YOUR_API_ENDPOINT', { username, password });
+      const response = await axios.post('http://localhost:8000/api/user/logInUser',userData );
 
-      const response = {
-        data: {
-          success: true,
-          name: 'Saran Velmurugan',
-          id: 'FSDB100',
-        }
-      }
 
       if (response.data.success) {
         const userDetails = {
           name: response.data.name,
-          id: response.data.id,
+          ID: response.data.ID,
         };
+
         localStorage.setItem('auth', 'true');
         localStorage.setItem('userDetails', JSON.stringify(userDetails));
         setIsAuthenticated(true);
-        toast.success('Login successful!');
+        toast.success(response.data.message);
         navigate('/dashboard');
+
       } else {
-        toast.error('Invalid credentials');
+        toast.error(response.data.message);
       }
+
     } catch (error) {
       console.error('Error during login:', error);
       toast.error('An error occurred. Please try again later.');

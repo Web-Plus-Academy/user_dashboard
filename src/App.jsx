@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
@@ -9,10 +9,13 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import POD from './Components/POD/POD';
 import Login from './Components/Login/Login';
 import TaskSubmit from './Components/TaskSubmit/TaskSubmit';
+import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const authState = localStorage.getItem('isAuthenticated');
@@ -30,13 +33,29 @@ const App = () => {
     setUserDetails(userDetails);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('userDetails');
-    setIsAuthenticated(false);
-    setUserDetails(null);
-  };
+  const handleLogout = async () => {
+    try{
 
+      
+      const response = await axios.get('http://localhost:8000/api/user/logOutUser' );
+      
+      if(response.data.success){
+        toast.success(response.data.message);
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('userDetails');
+        setIsAuthenticated(false);
+        setUserDetails(null);
+        // navigate('/');
+      }
+      else{
+        toast.error(response.data.message);
+      }
+  }catch(err){
+    console.log(err);
+  }
+
+}
+    
   return (
     <Router>
       <ToastContainer />
