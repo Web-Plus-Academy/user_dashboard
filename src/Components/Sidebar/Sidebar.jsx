@@ -6,14 +6,20 @@ const Sidebar = () => {
     return (
         <div className="sidebar-container">
 
-            <button className='dashboard_button'>
-                <Link className='dashboard_name' to="/dashboard">Dashboard</Link>
+            <button className='sidebar-container-button'>
+                <Link className='sidebar-container-link' to="/dashboard">Dashboard</Link>
             </button>
 
             <br /><hr />
 
-            <button className='pod_button'>
-                <Link className='pod_name' to="/pod">POD</Link>
+            <button className='sidebar-container-button'>
+                <Link className='sidebar-container-link' to="/tasks">Tasks</Link>
+            </button>
+
+            <br /><hr />
+
+            <button className='sidebar-container-button'>
+                <Link className='sidebar-container-link' to="/pod">POD</Link>
             </button>
 
         </div>

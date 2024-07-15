@@ -19,10 +19,10 @@
     color: inherit;
 }
 
-.dashboard_name, .dashboard_button, .pod_name, .pod_button {
+.sidebar-container-button, .sidebar-container-link{
     padding: 10px;
 }
 
-.dashboard_button, .pod_button{
+.sidebar-container-button{
     margin: 10px;
 }
