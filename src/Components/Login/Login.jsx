@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import axios from '../../axiosConfig.js';
 import './Login.css';
 import loginImg from '../../assets/login.jpg';
 
@@ -19,7 +19,7 @@ const Login = ({ setIsAuthenticated }) => {
     }
     
     try {
-      const response = await axios.post('http://localhost:8000/api/user/logInUser',userData );
+      const response = await axios.post('api/user/logInUser',userData );
 
 
       if (response.data.success) {

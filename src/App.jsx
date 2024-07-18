@@ -9,7 +9,7 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import POD from './Components/POD/POD';
 import Login from './Components/Login/Login';
 import TaskSubmit from './Components/TaskSubmit/TaskSubmit';
-import axios from 'axios';
+import axios from './axiosConfig';
 // import { useNavigate } from 'react-router-dom';
 
 const App = () => {
@@ -37,7 +37,7 @@ const App = () => {
     try{
 
       
-      const response = await axios.get('http://localhost:8000/api/user/logOutUser' );
+      const response = await axios.get('/api/user/logOutUser' );
       
       if(response.data.success){
         toast.success(response.data.message);
