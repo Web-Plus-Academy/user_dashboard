@@ -20,6 +20,7 @@ import axios from "./axiosConfig";
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [logoutTimer, setLogoutTimer] = useState(null);
   // const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,14 +29,26 @@ const App = () => {
     if (authState) {
       setIsAuthenticated(JSON.parse(authState));
       setUserDetails(JSON.parse(userDetails));
+      startLogoutTimer(); // Start the logout timer when the component mounts
     }
   }, []);
+
+  const startLogoutTimer = () => {
+    if (logoutTimer) {
+      clearTimeout(logoutTimer); // Clear any existing timer
+    }
+    const timer = setTimeout(() => {
+      handleLogout();
+    }, 3600000); // 1 hour in milliseconds
+    setLogoutTimer(timer); // Save the timer ID to state
+  };
 
   const handleLogin = (authState) => {
     localStorage.setItem("isAuthenticated", JSON.stringify(authState));
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
     setIsAuthenticated(authState);
     setUserDetails(userDetails);
+    startLogoutTimer(); // Start the logout timer on login
   };
 
   const handleLogout = async () => {
@@ -44,16 +57,20 @@ const App = () => {
 
       if (response.data.success) {
         toast.success(response.data.message);
-        localStorage.removeItem("isAuthenticated");
-        localStorage.removeItem("userDetails");
-        setIsAuthenticated(false);
-        setUserDetails(null);
-        // navigate('/');
       } else {
         toast.error(response.data.message);
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      localStorage.removeItem("isAuthenticated");
+      localStorage.removeItem("userDetails");
+      setIsAuthenticated(false);
+      setUserDetails(null);
+      if (logoutTimer) {
+        clearTimeout(logoutTimer); // Clear the timer on logout
+      }
+      // navigate('/');
     }
   };
 

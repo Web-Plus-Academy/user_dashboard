@@ -23,8 +23,18 @@ const POD = () => {
         return;
       }
 
-      const randomIndex = Math.floor(Math.random() * problems.length);
-      const randomProblem = problems[randomIndex].stat;
+      // Filter to get only easy and non-subscribed problems
+      const easyNonSubscribedProblems = problems.filter(
+        problem => problem.difficulty.level === 1 && !problem.paid_only
+      );
+
+      if (easyNonSubscribedProblems.length === 0) {
+        setLoading(false);
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * easyNonSubscribedProblems.length);
+      const randomProblem = easyNonSubscribedProblems[randomIndex].stat;
 
       const newPod = {
         id: randomProblem.question_id,
@@ -55,11 +65,42 @@ const POD = () => {
       setIsFrozen(storedStatusPod);
       setLoading(false); // No need to show loader if stored problem is available
     } else {
-      if(gotdata){
+      if (gotdata) {
         gotdata = false;
         fetchRandomProblem(); // Fetch new problem if none is stored
       }
     }
+
+    const clearLocalStorageAtTime = () => {
+      localStorage.removeItem('pod');
+      localStorage.removeItem('statusPod');
+      console.log("Local storage cleared at 21:52");
+      fetchRandomProblem(); // Fetch new problem after clearing local storage
+    };
+
+    const calculateTimeToSpecificTime = () => {
+      const now = new Date();
+      const targetTime = new Date(now);
+
+      targetTime.setHours(0, 0, 0, 0); // Set to 21:52:00
+
+      if (now > targetTime) {
+        targetTime.setDate(targetTime.getDate() + 1); // If the time has already passed today, set it for tomorrow
+      }
+
+      const timeToTarget = targetTime.getTime() - now.getTime();
+      return timeToTarget;
+    };
+
+    const timeToTarget = calculateTimeToSpecificTime();
+    const timeoutId = setTimeout(() => {
+      clearLocalStorageAtTime();
+      setInterval(clearLocalStorageAtTime, 24 * 60 * 60 * 1000); // Clear local storage every 24 hours
+    }, timeToTarget);
+
+    return () => {
+      clearTimeout(timeoutId); // Clear timeout on component unmount
+    };
   }, []);
 
   useEffect(() => {
