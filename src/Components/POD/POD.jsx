@@ -14,7 +14,7 @@ const POD = () => {
   const fetchRandomProblem = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/user/problems');
+      const response = await axios.get('/api/user/problems', { withCredentials: true });
       const problems = response.data.data.stat_status_pairs;
       const status_pod = response.data.podSubmissionStatus;
 
