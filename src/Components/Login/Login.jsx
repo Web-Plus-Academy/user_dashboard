@@ -19,8 +19,7 @@ const Login = ({ setIsAuthenticated }) => {
     }
     
     try {
-      const response = await axios.post('api/user/logInUser',userData );
-
+      const response = await axios.post('api/user/logInUser',userData , { withCredentials: true });
 
       if (response.data.success) {
         const userDetails = {

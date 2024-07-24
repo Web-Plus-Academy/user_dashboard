@@ -74,7 +74,6 @@ const POD = () => {
     const clearLocalStorageAtTime = () => {
       localStorage.removeItem('pod');
       localStorage.removeItem('statusPod');
-      console.log("Local storage cleared at 21:52");
       fetchRandomProblem(); // Fetch new problem after clearing local storage
     };
 
