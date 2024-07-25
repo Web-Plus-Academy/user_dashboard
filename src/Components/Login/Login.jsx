@@ -8,18 +8,20 @@ import loginImg from '../../assets/login.jpg';
 const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when the request starts
 
     let userData = {
-      username:username.toUpperCase(),
+      username: username.toUpperCase(),
       password
-    }
+    };
     
     try {
-      const response = await axios.post('api/user/logInUser',userData , { withCredentials: true });
+      const response = await axios.post('api/user/logInUser', userData);
 
       if (response.data.success) {
         const userDetails = {
@@ -32,7 +34,6 @@ const Login = ({ setIsAuthenticated }) => {
         setIsAuthenticated(true);
         toast.success(response.data.message);
         navigate('/dashboard');
-
       } else {
         toast.error(response.data.message);
       }
@@ -40,6 +41,8 @@ const Login = ({ setIsAuthenticated }) => {
     } catch (error) {
       console.error('Error during login:', error);
       toast.error('An error occurred. Please try again later.');
+    } finally {
+      setLoading(false); // Set loading to false when the request completes
     }
   };
 
@@ -71,7 +74,13 @@ const Login = ({ setIsAuthenticated }) => {
               required
             />
           </div>
-          <button className="submit-button" type="submit">Login</button>
+          <button
+            className="submit-button"
+            type="submit"
+            disabled={loading} 
+          >
+            {loading ? 'Logging in...' : 'Login'} 
+          </button>
         </form>
       </div>
     </div>

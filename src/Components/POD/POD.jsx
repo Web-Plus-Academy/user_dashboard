@@ -11,10 +11,25 @@ const POD = () => {
   const [loading, setLoading] = useState(true);
   const [isFrozen, setIsFrozen] = useState(false);
 
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+    if (!userDetails) {
+      toast.error('User details not found. Please log in again.');
+      setLoading(false);
+      return;
+    }
+
+    const data = {
+      user: userDetails.name,
+      id: userDetails.ID,
+    };
+
+
   const fetchRandomProblem = async () => {
     setLoading(true);
+    
     try {
-      const response = await axios.get('/api/user/problems', { withCredentials: true });
+      const response = await axios.post('/api/user/problems', data );
       const problems = response.data.data.stat_status_pairs;
       const status_pod = response.data.podSubmissionStatus;
 
@@ -25,7 +40,12 @@ const POD = () => {
 
       // Filter to get only easy and non-subscribed problems
       const easyNonSubscribedProblems = problems.filter(
-        problem => problem.difficulty.level === 1 && !problem.paid_only
+        (problem) =>
+          problem.difficulty.level === 1 &&
+          !problem.paid_only &&
+          problem.stat.question__title_slug.includes('array') ||
+          problem.stat.question__title_slug.includes('string') ||
+          problem.stat.question__title_slug.includes('math')
       );
 
       if (easyNonSubscribedProblems.length === 0) {
@@ -106,7 +126,7 @@ const POD = () => {
     const submitPod = async () => {
       if (isKeywordPresent) {
         try {
-          const response = await axios.get('/api/user/podSubmit', { withCredentials: true });
+          const response = await axios.post('/api/user/podSubmit',data);
 
           if (response.data.success && response.data.podSubmissionStatus) {
             toast.success('Submission successful!'); // Toast message for successful submission
