@@ -30,11 +30,14 @@
   border: 2px solid #007bff;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 3rem;
   margin-right: 50px;
   height: 60vh;
   justify-content: center;
-  align-items: center;
+}
+
+.login-form h2{
+  text-align: center;
 }
 
 .form-group{
@@ -60,6 +63,23 @@
   border-color: #007bff;
   outline: none;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007bff;
+  font-size: 1.25rem;
 }
 
 .submit-button {

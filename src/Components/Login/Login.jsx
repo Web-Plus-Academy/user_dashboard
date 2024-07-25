@@ -4,11 +4,13 @@ import { toast } from 'react-toastify';
 import axios from '../../axiosConfig.js';
 import './Login.css';
 import loginImg from '../../assets/login.jpg';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 
 const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -66,13 +68,22 @@ const Login = ({ setIsAuthenticated }) => {
           </div>
           <div className="form-group">
             <label className="form-label">Password:</label>
-            <input
-              className="form-input"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="password-container">
+              <input
+                className="form-input"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
           <button
             className="submit-button"
