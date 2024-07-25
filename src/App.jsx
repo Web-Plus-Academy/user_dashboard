@@ -53,7 +53,7 @@ const App = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get("/api/user/logOutUser");
+      const response = await axios.post("/api/user/logoutUser");
 
       if (response.data.success) {
         toast.success(response.data.message);

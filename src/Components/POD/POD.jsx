@@ -13,23 +13,23 @@ const POD = () => {
 
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
-    if (!userDetails) {
-      toast.error('User details not found. Please log in again.');
-      setLoading(false);
-      return;
-    }
+  if (!userDetails) {
+    toast.error('User details not found. Please log in again.');
+    setLoading(false);
+    return;
+  }
 
-    const data = {
-      user: userDetails.name,
-      id: userDetails.ID,
-    };
+  const data = {
+    user: userDetails.name,
+    id: userDetails.ID,
+  };
 
 
   const fetchRandomProblem = async () => {
     setLoading(true);
-    
+
     try {
-      const response = await axios.post('/api/user/problems', data );
+      const response = await axios.post('/api/user/problems', data);
       const problems = response.data.data.stat_status_pairs;
       const status_pod = response.data.podSubmissionStatus;
 
@@ -43,9 +43,9 @@ const POD = () => {
         (problem) =>
           problem.difficulty.level === 1 &&
           !problem.paid_only &&
-          problem.stat.question__title_slug.includes('array') ||
-          problem.stat.question__title_slug.includes('string') ||
-          problem.stat.question__title_slug.includes('math')
+          (problem.stat.question__title_slug.includes('array') ||
+           problem.stat.question__title_slug.includes('string') ||
+           problem.stat.question__title_slug.includes('math'))
       );
 
       if (easyNonSubscribedProblems.length === 0) {
@@ -74,59 +74,82 @@ const POD = () => {
     }
   };
 
-  var gotdata = true;
+  let gotData = true;
+
+  const checkPodAndFetch = async () => {
+    try {
+      // Fetch POD status and problems
+      const response = await axios.post('/api/user/problems', data);
+      const storedPod = JSON.parse(localStorage.getItem('pod'));
+      const storedStatusPod = localStorage.getItem('statusPod') === 'true';
+      const serverPodStatus = response.data.podSubmissionStatus;
+
+      console.log(response.data);
+
+      // If POD exists in local storage and it is not frozen on the server
+      if (storedPod && !serverPodStatus) {
+        setPod(storedPod);
+        setIsFrozen(storedStatusPod);
+        setLoading(false); // No need to show loader if stored problem is available
+      } else {       
+          fetchRandomProblem(); // Fetch new problem if none is stored
+      }
+
+      // Always update local storage based on server status
+      if (storedStatusPod !== serverPodStatus) {
+        localStorage.setItem('statusPod', serverPodStatus ? 'true' : 'false');
+        setIsFrozen(serverPodStatus);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      toast.error('Error fetching POD data.');
+    }
+  };
 
   useEffect(() => {
-    const storedPod = JSON.parse(localStorage.getItem('pod'));
-    const storedStatusPod = localStorage.getItem('statusPod') === 'true';
-
-    if (storedPod) {
-      setPod(storedPod);
-      setIsFrozen(storedStatusPod);
-      setLoading(false); // No need to show loader if stored problem is available
-    } else {
-      if (gotdata) {
-        gotdata = false;
-        fetchRandomProblem(); // Fetch new problem if none is stored
-      }
-    }
-
+    if (gotData) {
+      gotData = false;
+    checkPodAndFetch();
+  }
+  
+    // Clear local storage at specific time logic
     const clearLocalStorageAtTime = () => {
       localStorage.removeItem('pod');
       localStorage.removeItem('statusPod');
       fetchRandomProblem(); // Fetch new problem after clearing local storage
     };
-
+  
     const calculateTimeToSpecificTime = () => {
       const now = new Date();
       const targetTime = new Date(now);
-
-      targetTime.setHours(0, 0, 0, 0); // Set to 21:52:00
-
+  
+      targetTime.setHours(0, 0, 0, 0); // Set to start of the day
+  
       if (now > targetTime) {
         targetTime.setDate(targetTime.getDate() + 1); // If the time has already passed today, set it for tomorrow
       }
-
+  
       const timeToTarget = targetTime.getTime() - now.getTime();
       return timeToTarget;
     };
-
+  
     const timeToTarget = calculateTimeToSpecificTime();
     const timeoutId = setTimeout(() => {
       clearLocalStorageAtTime();
       setInterval(clearLocalStorageAtTime, 24 * 60 * 60 * 1000); // Clear local storage every 24 hours
     }, timeToTarget);
-
+  
     return () => {
       clearTimeout(timeoutId); // Clear timeout on component unmount
     };
   }, []);
+  
 
   useEffect(() => {
     const submitPod = async () => {
       if (isKeywordPresent) {
         try {
-          const response = await axios.post('/api/user/podSubmit',data);
+          const response = await axios.post('/api/user/podSubmit', data);
 
           if (response.data.success && response.data.podSubmissionStatus) {
             toast.success('Submission successful!'); // Toast message for successful submission
@@ -205,7 +228,6 @@ const POD = () => {
           )}
         </>
       )}
-      {/* <ToastContainer /> Add this to render toast messages */}
     </div>
   );
 };
