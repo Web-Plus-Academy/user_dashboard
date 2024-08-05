@@ -1,6 +1,6 @@
 import React from 'react';
 import './Dashboard.css';
-import ChangePassword from '../Changepassword/Changepassword';
+// import ChangePassword from '../Changepassword/Changepassword';
 
 const Dashboard = ({ userDetails }) => {
   return (
@@ -9,11 +9,8 @@ const Dashboard = ({ userDetails }) => {
       <h4 className="dashboard-welcome">Welcome,</h4>
       <h1 className="dashboard-name">{userDetails.name}</h1>
       <p className="dashboard-id">ID: {userDetails.ID}</p>
-      {/* Add more user details as needed */}
-      
-      {/* Include ChangePassword component */}
     </div>
-      <ChangePassword />
+      {/* <ChangePassword /> */}
     </>
   );
 };

@@ -3,6 +3,7 @@ import axios from '../../axiosConfig';
 import './POD.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PodCount from '../POD Count/PODcount';
 
 const POD = () => {
   const [url, setUrl] = useState('');
@@ -10,6 +11,7 @@ const POD = () => {
   const [pod, setPod] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isFrozen, setIsFrozen] = useState(false);
+  let [podCount, setPodCount] = useState(0);
 
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
@@ -32,6 +34,8 @@ const POD = () => {
       const response = await axios.post('/api/user/problems', data);
       const problems = response.data.data.stat_status_pairs;
       const status_pod = response.data.podSubmissionStatus;
+      console.log(response.data.podCount);
+      setPodCount(response.data.podCount);
 
       if (problems.length === 0) {
         setLoading(false);
@@ -83,8 +87,7 @@ const POD = () => {
       const storedPod = JSON.parse(localStorage.getItem('pod'));
       const storedStatusPod = localStorage.getItem('statusPod') === 'true';
       const serverPodStatus = response.data.podSubmissionStatus;
-
-      console.log(response.data);
+      setPodCount(response.data.podCount);
 
       // If POD exists in local storage and it is not frozen on the server
       if (storedPod && !serverPodStatus) {
@@ -155,6 +158,11 @@ const POD = () => {
             toast.success('Submission successful!'); // Toast message for successful submission
             localStorage.setItem('statusPod', 'true');
             setIsFrozen(true);
+
+            // Increment pod count immediately
+            setPodCount((prevCount) => prevCount + 1);
+
+            
           } else {
             toast.error('Submission failed. Please try again.'); // Toast message for failed submission
           }
@@ -188,6 +196,8 @@ const POD = () => {
   };
 
   return (
+    <>
+    <PodCount podCount={podCount}/>
     <div className="pod_container">
       <h2>Problem of the Day (POD)</h2>
       {loading ? (
@@ -214,7 +224,7 @@ const POD = () => {
                 placeholder="Enter URL"
                 value={url}
                 onChange={handleChange}
-              />
+                />
               <button type="submit">Submit POD</button>
             </form>
           )}
@@ -229,6 +239,7 @@ const POD = () => {
         </>
       )}
     </div>
+      </>
   );
 };
 

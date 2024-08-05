@@ -1,0 +1,19 @@
+.pod-count-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .pod-count-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .days-left-text {
+    font-size: 1rem;
+    color: #666;
+  }
+  
