@@ -162,6 +162,9 @@ const POD = () => {
             // Increment pod count immediately
             setPodCount((prevCount) => prevCount + 1);
 
+            // Clear pod question link from local storage
+          localStorage.removeItem('pod');
+          setPod(null); // Clear the pod state as well
             
           } else {
             toast.error('Submission failed. Please try again.'); // Toast message for failed submission
