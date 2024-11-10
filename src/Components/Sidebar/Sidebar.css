@@ -1,8 +1,51 @@
-.sidebar-container {
-    width: 200px;
+  /* Fixed sidebar */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
     background-color: #f4f4f4;
-    height: 100vh;
+    position: fixed;
+    top: 60px; /* Adjust this based on the navbar height */
+    left: 0;
+    width: 270px; /* Sidebar width */
+    height: calc(100vh - 60px); /* Full height of the viewport minus navbar height */
     padding: 1rem;
+    overflow-y: auto; /* Ensure content inside sidebar scrolls if it exceeds the height */
+  }
+
+.sidebar-box{
+    background-color: #f4f4f4;
+    border: 2px solid blue;
+    padding: 2.2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    margin: 10px auto;
+    line-height: 30px;
+}
+
+.sidebar-welcome {
+    font-size: 1.5rem;
+    color: #333;
+  }
+
+    
+  .sidebar-name {
+    font-size: 1rem;
+    color: #007bff;
+  }
+  
+  .sidebar-id {
+    font-size: 1.2rem;
+    color: #666;
+  }
+
+.sidebar-container {
+    margin-top: 50px;
+    width: 250px;
+    height: 100vh;
+    padding: 1.1rem;
+    background-color: rgb(229, 229, 229);
 }
 
 .sidebar-container ul {
@@ -39,4 +82,32 @@
 .sidebar-container-link.active {
     font-weight: bold;
     background-color: orange;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+
+    .app-container{
+        flex: 1;
+    }
+
+    .sidebar{
+        width: 40%;
+    }
+    .sidebar-box{
+        width: 90%;
+    }
+
+    .sidebar-box h4{
+        font-size: 20px;
+    }
+
+    .sidebar-container {
+        width: 100%; /* Full width on small screens */
+        position: static; /* Stack sidebar vertically on small screens */
+        height: auto;
+    }
+    .sidebar-container a{
+        font-size: 10px;
+    }
 }

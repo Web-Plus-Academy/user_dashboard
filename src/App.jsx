@@ -82,7 +82,7 @@ const App = () => {
           <Navbar onLogout={handleLogout} />
           <div className="app-container">
             <Sidebar />
-            <div className="main-content">
+            <div className="main-content container">
               <Routes>
                 <Route path="/" element={<Navigate to="/dashboard" />} />
                 <Route

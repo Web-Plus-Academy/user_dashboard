@@ -1,0 +1,130 @@
+/* TaskSubmit.css */
+
+body {
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    background: #f0f4f8;
+    color: #333;
+  }
+  
+  .task-submit-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-title {
+    font-size: 2rem;
+    text-align: center;
+    color: #3b82f6;
+    margin-bottom: 2rem;
+  }
+  
+  .semester-title {
+    font-size: 1.5rem;
+    color: #4f46e5;
+    margin-bottom: 1rem;
+  }
+  
+  .semester-section {
+    margin-bottom: 2rem;
+  }
+  
+  .task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .task-item {
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .task-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-header {
+    font-size: 1.25rem;
+    color: #1e40af;
+    margin-bottom: 0.5rem;
+  }
+  
+  .task-details {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin: 0.3rem 0;
+  }
+  
+  .task-link {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+  
+  .task-credits {
+    font-size: 0.95rem;
+    color: orange;
+    margin-top: 0.5rem;
+  }
+  
+  .task-credits.negative {
+    color: #f87171;
+  }
+  
+  .task-submitted {
+    color: #10b981;
+    font-weight: 600;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  
+  .task-form label {
+    font-size: 0.9rem;
+    color: #374151;
+  }
+  
+  .task-form input {
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .task-form input:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+  
+  .submit-button {
+    padding: 0.75rem 1rem;
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #2563eb;
+  }
+  
