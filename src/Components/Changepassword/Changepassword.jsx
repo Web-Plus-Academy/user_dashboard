@@ -104,7 +104,7 @@ const ChangePassword = () => {
             </span>
           </div>
         </div>
-        <button type="submit">Change Password</button>
+        <button className="button" type="submit">Change Password</button>
       </form>
     </div>
   );
