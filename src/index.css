@@ -23,7 +23,7 @@ hr{
 /* Layout container */
 .app-container {
     display: flex;
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
   }
   
@@ -33,9 +33,9 @@ hr{
 
 /* Main content area */
 .main-content {
-    margin-top: 60px;  
+    /* margin-top: 60px;   */
     width: 100%;
-    height: calc(100vh - 60px); /* Full height of the viewport minus navbar height */
+    height: 90vh;
     overflow-y: auto; /* Make main content scrollable */
   }
   
