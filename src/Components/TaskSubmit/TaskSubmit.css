@@ -134,11 +134,10 @@ body {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .submit-button:hover {
   background: linear-gradient(145deg, #2563eb, #1d4ed8);
-  transform: translateY(-3px);
+
   box-shadow: 0 5px 15px rgba(37, 99, 235, 0.5);
 }
