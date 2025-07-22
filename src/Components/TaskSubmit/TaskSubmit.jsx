@@ -251,7 +251,7 @@ console.log(semSub)
                         value={submissionLinks[task._id] || ''}
                         onChange={(e) => handleSubmissionLinkChange(e, task._id)}
                         required
-                        placeholder="Enter your GitHub link"
+                        placeholder="Enter your Linkedin Post URL"
                       />
                       <button type="submit" className="submit-button">Submit</button>
                     </form>
@@ -312,12 +312,12 @@ console.log(semSub)
 
                   <form className="task-form" onSubmit={(e) => handleLinkSubmit(e,task.sem, task._id)}>
                     <label>
-                      GitHub Link:
+                      Linkedin Post URL:
                       <input
                         type="url"
                         value={links[task._id]?.gitlink || ''}
                         onChange={(e) => handleLinkChange(e, task._id, 'gitlink')}
-                        placeholder="Enter your GitHub link"
+                        placeholder="Enter your Linkedin Post URL"
                         required
                       />
                     </label>
